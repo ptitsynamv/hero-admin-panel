@@ -6,7 +6,7 @@ import { setActiveFilter } from '../../actions';
 const HeroesFilters = () => {
   const dispatch = useDispatch();
   const { filters, filtersLoadingStatus, activeFilter } = useSelector(
-    (state) => state
+    (state) => state.filters
   );
 
   const onFilterSet = (title) => {
