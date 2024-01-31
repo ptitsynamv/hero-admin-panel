@@ -3,10 +3,14 @@ import * as Yup from 'yup';
 import { useHttp } from '../../hooks/http.hook';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchFilters } from '../../actions';
 import { useEffect } from 'react';
 import Spinner from '../spinner/Spinner';
-import { heroAdded, heroAdding, heroAddingError } from '../heroesList/heroesSlice';
+import {
+  heroAdded,
+  heroAdding,
+  heroAddingError,
+} from '../heroesList/heroesSlice';
+import { fetchFilters } from '../heroesFilters/filtersSlice';
 
 const HeroesAddForm = () => {
   const dispatch = useDispatch();
@@ -16,7 +20,7 @@ const HeroesAddForm = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchFilters(request));
+    dispatch(fetchFilters());
   }, []);
 
   const getOptions = (filters) => {
