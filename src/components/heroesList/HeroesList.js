@@ -1,5 +1,5 @@
 import { useHttp } from '../../hooks/http.hook';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -29,19 +29,22 @@ const HeroesList = () => {
     // eslint-disable-next-line
   }, []);
 
+  const onDeleteHero = useCallback(
+    (id) => {
+      dispatch(heroDeleting(id));
+
+      request(`http://localhost:3001/heroes/${id}`, 'DELETE')
+        .then(() => dispatch(heroDeleted(id)))
+        .catch(() => dispatch(heroDeletingError()));
+    },
+    [request]
+  );
+
   if (heroesLoadingStatus === 'loading') {
     return <Spinner />;
   } else if (heroesLoadingStatus === 'error') {
     return <h5 className="text-center mt-5">Error</h5>;
   }
-
-  const onDeleteHero = (id) => {
-    dispatch(heroDeleting(id));
-
-    request(`http://localhost:3001/heroes/${id}`, 'DELETE')
-      .then(() => dispatch(heroDeleted(id)))
-      .catch(() => dispatch(heroDeletingError()));
-  };
 
   const renderHeroesList = (arr) => {
     if (arr.length === 0) {
