@@ -1,22 +1,16 @@
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useHttp } from '../../hooks/http.hook';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react';
 import Spinner from '../spinner/Spinner';
-import {
-  heroAdded,
-  heroAdding,
-  heroAddingError,
-} from '../heroesList/heroesSlice';
 import { fetchFilters, selectAllFilters } from '../heroesFilters/filtersSlice';
+import { useCreateHeroMutation } from '../../api/apiSlice';
 
 const HeroesAddForm = () => {
   const dispatch = useDispatch();
-  const { request } = useHttp();
-  const { filtersLoadingStatus } = useSelector((state) => state.filters);
   const filters = useSelector(selectAllFilters);
+  const [createHero, { isLoading, isError }] = useCreateHeroMutation();
 
   useEffect(() => {
     dispatch(fetchFilters());
@@ -54,11 +48,7 @@ const HeroesAddForm = () => {
           id: uuidv4(),
         };
 
-        dispatch(heroAdding(hero));
-
-        request(`http://localhost:3001/heroes`, 'POST', hero)
-          .then(() => dispatch(heroAdded(hero)))
-          .catch(() => dispatch(heroAddingError()));
+        createHero(hero);
       }}
     >
       {({ values, handleChange, handleBlur, handleSubmit }) => (
@@ -104,11 +94,9 @@ const HeroesAddForm = () => {
           </div>
 
           <div className="mb-3">
-            {filtersLoadingStatus === 'loading' ? <Spinner /> : null}
-            {filtersLoadingStatus === 'error' ? (
-              <h5 className="text-center mt-5">Error</h5>
-            ) : null}
-            {filtersLoadingStatus === 'idle' ? (
+            {isLoading ? <Spinner /> : null}
+            {isError ? <h5 className="text-center mt-5">Error</h5> : null}
+            {!isLoading && !isError ? (
               <>
                 <label htmlFor="element" className="form-label">
                   Choose element
