@@ -1,0 +1,55 @@
+{
+  "heroes": [
+    {
+      "id": "1",
+      "name": "First hero",
+      "description": "First hero description",
+      "element": "fire"
+    },
+    {
+      "id": "2",
+      "name": "Second hero",
+      "description": "Second hero description",
+      "element": "wind"
+    },
+    {
+      "id": "3",
+      "name": "Third hero",
+      "description": "Third hero description",
+      "element": "water"
+    },
+    {
+      "name": "name-4",
+      "description": "desc-4",
+      "element": "earth",
+      "id": "e7a3e7d8-5e51-4d63-bd27-eadef94ca15a"
+    }
+  ],
+  "filters": [
+    {
+      "id": 1,
+      "title": "all",
+      "color": "outline-dark"
+    },
+    {
+      "id": 2,
+      "title": "fire",
+      "color": "danger"
+    },
+    {
+      "id": 3,
+      "title": "water",
+      "color": "primary"
+    },
+    {
+      "id": 4,
+      "title": "wind",
+      "color": "success"
+    },
+    {
+      "id": 5,
+      "title": "earth",
+      "color": "secondary"
+    }
+  ]
+}
