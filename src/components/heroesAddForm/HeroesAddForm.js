@@ -10,14 +10,13 @@ import {
   heroAdding,
   heroAddingError,
 } from '../heroesList/heroesSlice';
-import { fetchFilters } from '../heroesFilters/filtersSlice';
+import { fetchFilters, selectAllFilters } from '../heroesFilters/filtersSlice';
 
 const HeroesAddForm = () => {
   const dispatch = useDispatch();
   const { request } = useHttp();
-  const { filters, filtersLoadingStatus } = useSelector(
-    (state) => state.filters
-  );
+  const { filtersLoadingStatus } = useSelector((state) => state.filters);
+  const filters = useSelector(selectAllFilters);
 
   useEffect(() => {
     dispatch(fetchFilters());
