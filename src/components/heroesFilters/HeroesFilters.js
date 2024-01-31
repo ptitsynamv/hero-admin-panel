@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../spinner/Spinner';
-import { setActiveFilter } from '../../actions';
+import { setActiveFilter } from './filtersSlice';
 
 const HeroesFilters = () => {
   const dispatch = useDispatch();
